@@ -1,0 +1,4 @@
+*.pyc
+*.swp
+data/ffserver.conf.log
+data/ffserver.conf

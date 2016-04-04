@@ -1,0 +1,150 @@
+{
+    "products" : [ ],
+    "configuration": [
+        {
+            "default": "127.0.0.1", 
+            "description": "IP of the streaming server. This IP will be used in the URL to access the video.",
+            "key": "ffserver_ip", 
+            "name": "Streaming server ip",
+            "required": "yes", 
+            "type": "string"
+        },
+        {
+            "default": "8090", 
+            "description": "Port of the streaming server",
+            "key": "ffserver_port", 
+            "name": "Streaming server port",
+            "required": "yes", 
+            "type": "integer"
+        },
+        {
+            "default": "7", 
+            "description": "The motion video files older than X days will be deleted.",
+            "key": "motion_files_history", 
+            "name": "Number of days to keep the video files",
+            "required": "yes", 
+            "type": "integer"
+        }
+    ],
+    "xpl_commands": {},   
+    "xpl_stats": {},
+    "commands": {
+        "speak" : {
+            "name" : "Make the camera speak some text",
+            "return_confirmation" : true,
+            "parameters" : [
+                {
+                    "key" : "text",
+                    "data_type" : "DT_String",
+                    "conversion" : "" 
+                }
+            ]
+        }
+    },
+    "sensors": {
+	"yi": {
+		"name": "Mjpeg video url",
+                "data_type": "DT_VideoMjpeg",
+                "conversion": "",
+                "incremental": false,
+                "timeout": 0,
+                "history": {
+                    "store": false,
+                    "duplicate": true,
+                    "max": 0,
+                    "expire": 0,
+                    "round_value": 0
+                }
+	},
+	"motion": {
+		"name": "Motion detection",
+                "data_type": "DT_Motion",
+                "conversion": "",
+                "incremental": false,
+                "timeout": 0,
+                "history": {
+                    "store": true,
+                    "duplicate": false,
+                    "max": 0,
+                    "expire": 0,
+                    "round_value": 0
+                }
+	},
+	"motion_file": {
+		"name": "Motion file",
+                "data_type": "DT_String",
+                "conversion": "",
+                "incremental": false,
+                "timeout": 0,
+                "history": {
+                    "store": true,
+                    "duplicate": false,
+                    "max": 0,
+                    "expire": 0,
+                    "round_value": 0
+                }
+	},
+	"sd_used_space": {
+		"name": "Percent of used space on the Yi SD memory card",
+                "data_type": "DT_Scaling",
+                "conversion": "",
+                "incremental": false,
+                "timeout": 0,
+                "history": {
+                    "store": false,
+                    "duplicate": true,
+                    "max": 0,
+                    "expire": 0,
+                    "round_value": 0
+                }
+	}
+    },
+    "device_types": {
+        "yi.yi": {
+            "description": "Xiaomi Yi Ants camera", 
+            "id": "yi.yi",
+            "name": "Yi camera",
+            "commands": ["speak"],
+            "sensors": ["yi", "motion", "motion_file"],
+            "parameters": [
+                {
+                    "key": "ip",
+                    "xpl": false,
+                    "description": "Ip of the Yi camera",
+                    "type": "string"
+                },
+                {
+                    "key": "download_motion_files",
+                    "xpl": false,
+                    "description": "Download the video files when a motion is detected",
+                    "type": "boolean"
+                }
+            ]
+        }
+    }, 
+    "identity": {
+        "author": "Fritz",
+        "author_email": "fritz.smh at gmail.com,",
+        "tags": ["camera", "Xiaomi", "Yi ants"],
+        "dependencies": [
+            {   
+                "id": "ffmpeg",
+                "type": "other"
+            },
+            {   
+                "id": "libttspico-utils",
+                "type": "other"
+            },
+            {   
+                "id": "sox",
+                "type": "other"
+            }
+        ],
+        "description": "Manage Xiaomi Yi Ants camera",
+        "domogik_min_version": "0.5.0", 
+        "name": "yi", 
+        "type": "plugin", 
+        "version": "1.0"
+    }, 
+    "json_version": 2
+}
