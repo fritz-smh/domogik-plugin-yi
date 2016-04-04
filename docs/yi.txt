@@ -1,0 +1,93 @@
+.. _index:
+
+=========
+Plugin yi
+=========
+
+Purpose
+=======
+
+This plugin can work only with a Xiaomi Yi Ants camera with a custom firmware installed. You can find this firmware at https://github.com/fritz-smh/yi-hack
+
+With this plugin you can :
+
+* get motion detection information
+* download some 60 seconds video files when a motion is detected
+* make the camera speak
+* display the camera video in a web interface : the plugin will convert the **h264** video format which is not compliant with a web interface to the universal **mjpeg** video format.
+
+Dependencies
+============
+
+To be able to convert the video file from **h264** to **mjpeg**, you will need to install the **ffmjpeg** tool : ::
+
+    $ apt-get ffmpeg
+
+
+to be able to make the camera speak, you will need to install the following packages: ::
+
+    $ sudo apt-get install libttspico-utils
+    $ sudo apt-get install sox
+
+Prerequisites
+=============
+
+This plugin will need some temporary files to allow the live video conversion. You will need **1Go of free space per camera in /tmp**.
+
+If you plan to make the plugin save the video files of detected motion, you will need to check you will have enough free space in the folder **/var/lib/domogik/domogik_packages/plugin_yi/publish/**. 
+
+Camera installation
+===================
+
+Please follow the instructions from https://github.com/fritz-smh/yi-hack
+
+You can freely unplug or reboot the camera while the plugin is running. The plugin will be able to reconnect automatically to the camera.
+
+Plugin configuration
+====================
+
+You will have to configure these parameters :
+
+===================== =========================== ======================================================================
+Key                   Type                        Description
+===================== =========================== ======================================================================
+ffserver_ip           string (ip or dns)          The ip or dns name of the server which will stream the video feed.
+                                                  This is the ip or dns that hosts this plugin. If you plan to access
+                                                  the video feed from internet, please use a public dns.
+--------------------- --------------------------- ----------------------------------------------------------------------
+ffserver_port         number                      The port on which the video feed will be streamed. If you plan to 
+                                                  access the video feed from internet, please configure your internet
+                                                  router to redirect this port from internet to the server that hosts
+                                                  this plugin.
+--------------------- --------------------------- ----------------------------------------------------------------------
+motion_files_history  number                      The number of days of history you want to keep for video files of 
+                                                  detected motions.
+===================== =========================== ======================================================================
+
+Create the domogik devices
+==========================
+
+Domogik device type : yi.yi
+---------------------------
+
+Two parameters are needed for each camera:
+
+===================== =========================== ======================================================================
+Key                   Type                        Description
+===================== =========================== ======================================================================
+ip                    string (ip or dns)          The ip or dns name of your Xiaomi Yi Ants camera.
+--------------------- --------------------------- ----------------------------------------------------------------------
+download_motion_files boolean                     Set to true if you want the plugin to download the video files.
+===================== =========================== ======================================================================
+
+
+Start the plugin
+================
+
+You can now start the plugin (start button) and use the created domogik devices.
+
+Set up your widgets on the user interface
+=========================================
+
+You can now place the widgets of your devices features on the user interface.
+
