@@ -9,6 +9,9 @@ Purpose
 
 This plugin can work only with a Xiaomi Yi Ants camera with a custom firmware installed. You can find this firmware at https://github.com/fritz-smh/yi-hack
 
+  .. image:: yi.jpg
+
+
 With this plugin you can :
 
 * get motion detection information
